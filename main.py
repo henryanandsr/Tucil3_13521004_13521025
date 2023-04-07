@@ -78,5 +78,5 @@ def main ():
     adjacents, nodes = read("./test/Test.txt")
     print(UCS(nodes[3], nodes[0], adjacents))
 
-main()
+# main()
     
