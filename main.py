@@ -1,6 +1,7 @@
 import Node as n
 import Graph as g
 import Adjacent as a
+import queue
 
 def read(file):
     # Open the text file
@@ -25,17 +26,57 @@ def read(file):
         numbers = lines[j].strip().split(' ')
         for node in range(len(numbers)):
             if numbers[node] != '0':
-                adjacent.append([arrOfNode[node], numbers[node]])
+                adjacent.append([arrOfNode[node], int(numbers[node])])
         array_of_nodes.append(temp)
         array_of_adjacent.append(a.Adjacent(temp, adjacent))
         i += 1
 
     return array_of_adjacent, array_of_nodes
-        
-# a,b =(read("./test/Test.txt"))
-# # print(a)
-# for i in range (len(a)):
-#     a[i].display()
 
-# for i in range (len(b)):
-#     b[i].display()
+def UCS(start, end, adjacents):
+    # pqueue = queue.PriorityQueue()
+    pqueue = []
+    visited = []
+    # pqueue.put([0, start])
+    pqueue.append([0, start])
+    path = []
+
+    while pqueue:
+        min_val = min(pqueue) 
+        min_idx = pqueue.index(min_val)  
+        current = pqueue.pop(min_idx) 
+        if current[1].name == end.name:
+            visited.append(current[1].name)
+            temp_node = current[1]
+            while(temp_node != start):
+                path.append(temp_node.name)
+                temp_node = temp_node.previous
+            path.append(start.name)
+            path = path[::-1]
+            print(visited)
+            return current[0], path
+        
+        if current[1].name not in visited:
+            temp_node = current[1]
+            visited.append(current[1].name)
+            for i in range(len(adjacents)):
+                if adjacents[i].start.name == current[1].name:
+                    for j in range(len(adjacents[i].adjacent)):
+                        if adjacents[i].adjacent[j][0].name not in visited:
+                            adjacents[i].adjacent[j][0].setPrev(current[1])
+                            # pqueue.put([int(current[0]) + adjacents[i].adjacent[j][1], adjacents[i].adjacent[j][0]])
+                            pqueue.append([int(current[0]) + adjacents[i].adjacent[j][1], adjacents[i].adjacent[j][0]])
+                            
+        else:   
+            continue
+            
+
+    return None
+        
+
+def main ():
+    adjacents, nodes = read("./test/Test.txt")
+    print(UCS(nodes[3], nodes[0], adjacents))
+
+main()
+    
