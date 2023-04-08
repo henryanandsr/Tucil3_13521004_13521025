@@ -26,6 +26,7 @@ class Graph:
     #     self.cost = 0
     def addAdjNode(self, node):
         self.list.append(node)
+        self.state = self.list[len(self.list)-1]
     def getCost(self):
         return self.cost
     def display(self):

@@ -17,6 +17,7 @@ class Adjacent:
         # node
         self.start = start
         # list of nodes with weight/distance
+        # [[node, distance], [node, distance], ...]
         self.adjacent = adjacent
     def display(self):
         print("===========================")
