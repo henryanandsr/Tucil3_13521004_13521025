@@ -3,6 +3,8 @@ import Graph as g
 import Adjacent as a
 import main as Main
 import copy
+import networkx as nx
+import matplotlib.pyplot as plt
 
 def inside(arr, el):
     #cek apakah adjacent el sudah ada di dalam arr
@@ -128,4 +130,23 @@ def main():
     #display graf hasil
     result.display()
     print("Cost : " + str(result.cost))
+
+    # Visualisasi graf
+    G = nx.DiGraph()
+    for tempAdj in array_adj:
+        for i in range(len(tempAdj.adjacent)):
+            G.add_edge(tempAdj.start.name, tempAdj.adjacent[i][0].name, weight=tempAdj.adjacent[i][1])
+    # set warna edge
+    edge_colors = [G[u][v]['color'] if 'color' in G[u][v] else 'black' for u, v in G.edges()]
+    # set posisi node
+    pos = nx.spring_layout(G)
+    # gambar graf
+    nx.draw_networkx_edges(G, pos, edge_color=edge_colors, width=2, arrows=False)
+    nx.draw_networkx_nodes(G, pos, node_size=2000, node_color='lightblue')
+    nx.draw_networkx_labels(G, pos, font_size=7, font_family='sans-serif')
+    # set warna edge hasil
+    red_edges = [(result.list[i].start.name, result.list[i+1].start.name) for i in range(len(result.list)-1)]
+    nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='red', width=2, arrows=False)
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
+    plt.show()
 main()
