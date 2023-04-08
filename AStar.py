@@ -71,6 +71,12 @@ def AStar(arrAdj, idxStart, idxEnd):
                     tempGraph.cost = tempGraph.cost + temp.adjacent[i][1] + heuristic
                     #masukkan dalam result apabila menemukan hasil
                     if (isContainsEndNode(tempGraph, endNode)):
+                        p = len(tempGraph.list)-1
+                        val = (len(arrAdj)-2)*2
+                        while (p>0):
+                            tempGraph.cost -= val
+                            p-=1
+                            val = val-2
                         result.append(tempGraph)
                     #masukkan dalam pqueue dan visited
                     pqueue.append(tempGraph)    
