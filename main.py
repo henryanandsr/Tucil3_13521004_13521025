@@ -13,6 +13,7 @@ def read(file):
     array_of_adjacent = []
     arrOfNode = []
     i = 0
+    # buat node
     for j in range (len(lines)):
         num = int(lines[0])
         if j > num :
@@ -32,6 +33,37 @@ def read(file):
         i += 1
 
     return array_of_adjacent, array_of_nodes
+
+def readWithCoor(file):
+    with open(file, 'r') as file:
+    # Read the lines from the file
+        lines = file.readlines()
+    array_of_nodes = []
+    array_of_adjacent = []
+    i = 0
+    prev = 0
+    for j in range (len(lines)):
+        num = int(lines[0])
+        if j > num *2:
+            break
+        if (j != 0):
+            if (j % 2 == 1):
+                array_of_nodes.append(n.NodeB(lines[j]))
+            else:
+                temporaryCoor = lines[j].strip().split(' ')
+                array_of_nodes[prev].setCoor(float(temporaryCoor[0]), float(temporaryCoor[1]))
+                prev +=1
+    for j in range(num*2+1,len(lines)):
+        adjacent = []
+        temp = array_of_nodes[i]
+        numbers = lines[j].strip().split(' ')
+        for node in range(len(numbers)):
+            if numbers[node] != '0':
+                adjacent.append([array_of_nodes[node]])
+        array_of_adjacent.append(a.AdjacentB(temp, adjacent))
+        i += 1
+    return array_of_adjacent, array_of_nodes
+        
 
 def UCS(start, end, adjacents):
     # pqueue = queue.PriorityQueue()
@@ -77,6 +109,10 @@ def UCS(start, end, adjacents):
 def main ():
     adjacents, nodes = read("./test/Test.txt")
     print(UCS(nodes[3], nodes[0], adjacents))
-
-# main()
+    # adjacents, nodes = readWithCoor("./test/buahbatu.txt")
+    # for el in adjacents:
+    #     el.display()
+    # for el in nodes:
+    #     el.display()
+main()
     
