@@ -1,10 +1,13 @@
 import math
 
 class NodeB:
-    def __init__(self,X, Y, name):
+    def __init__(self,name):
+        self.name = name
+    def setCoor(self,X,Y):
         self.X = X
         self.Y = Y
-        self.name = name
+    def display(self):
+        print(self.name)
 
 class Node:
 
