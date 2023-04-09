@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload</title>
+</head>
+<body>
+    <h1>File Upload</h1>
+    <form method="POST" action = "/" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".txt">
+        <input type="submit" value="Upload">
+    </form>
+    {%if result%}
+    <h2>Result:</h2>
+    <ol>
+    {% for line in result %}
+        <li>{{ line }}</li>
+    {% endfor %}
+    </ol>
+    <div>
+    <form method="POST" action = "/calc">
+        <label for="Node1">Masukkan Node awal : </label>
+        <input type="text" id="Node1" name="Node1">
+        <label for="Node2">Masukkan Node akhir: </label>
+        <input type="text" id="Node2" name="Node2">
+        <button type="submit">Submit</button>
+        <!--Pass the array adjacent-->
+        <input type="hidden" name="adjacent" value="{{array_adj}}">
+    </form>
+    </div>
+    {%endif%}
+</body>
+</html>

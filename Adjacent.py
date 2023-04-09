@@ -19,6 +19,8 @@ class AdjacentB:
         for i in range (len(self.adjacent)):
             self.adjacent[i][0].display()
         print("===========================")
+    def getName(self):
+        return self.start.name
     
 class Adjacent:
     def __init__(self, start, adjacent):

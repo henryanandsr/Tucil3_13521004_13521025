@@ -237,4 +237,4 @@ def main():
     # nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='red', width=2, arrows=False)
     # nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
     # plt.show()
-main()
+# main()
