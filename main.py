@@ -106,13 +106,13 @@ def UCS(start, end, adjacents):
     return None
         
 
-def main ():
-    adjacents, nodes = read("./test/Test.txt")
-    print(UCS(nodes[3], nodes[0], adjacents))
+# def main ():
+    # adjacents, nodes = read("./test/Test.txt")
+    # print(UCS(nodes[3], nodes[0], adjacents))
     # adjacents, nodes = readWithCoor("./test/buahbatu.txt")
     # for el in adjacents:
     #     el.display()
     # for el in nodes:
     #     el.display()
-main()
+# main()
     

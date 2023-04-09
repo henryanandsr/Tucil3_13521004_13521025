@@ -107,42 +107,134 @@ def AStar(arrAdj, idxStart, idxEnd):
                     min2 = pqueue[i]
             if (min.cost <= min2.cost):
                 found = True
+        if (len(pqueue)==0):
+            break
+    if found:
+        for i in range (len(result)):
+            if (result[i].cost == min.cost):
+                return result[i]
+    else:
+        return None
+def distance(Adj1, Adj2):
+    #menghitung jarak antar node
+    # print(Adj1.x)
+    # print(Adj2.x)
+    return ((Adj1.start.X - Adj2.start.X)**2 + (Adj1.start.Y - Adj2.start.Y)**2)**0.5
+def AStarBonus(arrAdj, idxStart, idxEnd):
+    found = False
+    visited = []
+    pqueue = []
+    result = []
+    temp = arrAdj[idxStart]
+
+    #make a graph with start node
+    parent = g.Graph(temp)
+    # visited.append(temp)
+    pqueue.append(parent)
+    #inisiasi endnode
+    endNode = arrAdj[idxEnd]
+    
+    idx = 0
+    while not found:
+        #hapus dulu parentnya dari list
+        del pqueue[idx]
+        # ambil adjacent dari graf parent sampai dimana kita
+        temp = parent.state
+
+        for i in range (len(temp.adjacent)):
+            tempParent = copy.deepcopy(parent)
+            if not inside(visited, temp.adjacent[i][0]):
+                #cari graf yang ingin dimasukkan
+                for j in range (len(arrAdj)):
+                    if arrAdj[j].start.name == temp.adjacent[i][0].name:
+                        tempAdj = arrAdj[j]
+                        break
+                if (not tempAdj == None):
+                    # print('tempAdj : ' + str(tempAdj.start.name))
+                    # tempAdj.display()
+                    previous = copy.deepcopy(tempParent.state)
+                    tempParent.addAdjNode(tempAdj)
+                    tempGraph = tempParent
+                    #update cost
+                    heuristic = distance(tempGraph.state, arrAdj[idxEnd])
+                    # heuristic = 0
+                    tempGraph.cost = tempGraph.purecost + distance(previous, tempGraph.state) + heuristic
+                    tempGraph.purecost = tempGraph.purecost + distance(previous, tempGraph.state)
+                    #masukkan dalam result apabila menemukan hasil
+                    if (isContainsEndNode(tempGraph, endNode)):
+                        p = len(tempGraph.list)-1
+                        val = (len(arrAdj)-2)*2
+                        while (p>0):
+                            tempGraph.cost -= val
+                            p-=1
+                            val = val-2
+                        result.append(tempGraph)
+                    #masukkan dalam pqueue dan visited
+                    pqueue.append(tempGraph)    
+                    # print('....................................................')
+                    # tempGraph.display()
+                    # print('heuristic' + str(heuristic))
+                    # print('....................................................')
+                    # print('--->  ' + str(tempGraph.cost))
+            # print("masuk")
+        # cari node yang belum dikunjungi dengan f(n) terkecil
+        visited.append(temp)
+        min = copy.deepcopy(pqueue[0])
+        for i in range (len(pqueue)):
+            if (pqueue[i].cost < min.cost):
+                min = pqueue[i]
+                idx = i
+        parent = min
+        # parent.display()
+        #cari apakah sudah tidak bisa lagi / pencarian selesai 
+        if (len(result)>0):
+            min = result[0]
+            for i in range (len(result)):
+                #cari nilai minimal di result
+                if (result[i].cost < min.cost):
+                    min = result[i]
+            #cari nilai minimal di pqueue
+            min2 = pqueue[0]
+            for i in range (len(pqueue)):
+                if (pqueue[i].cost < min2.cost):
+                    min2 = pqueue[i]
+            if (min.cost <= min2.cost):
+                found = True
     for i in range (len(result)):
         if (result[i].cost == min.cost):
             return result[i]
+def main():
+    #baca dari test.txt
+    array_adj, array_node = Main.readWithCoor("./test/alunalun.txt")
+    #minta input start dan end
+    for i in range (len(array_adj)):
+        print(str(i+1) + ". " + array_adj[i].start.name, end="")
+    idStart = int(input("Masukkan nomor node start : "))
+    idEnd = int(input("Masukkan nomor node end : "))
+    #jalankan AStar
+    result = AStarBonus(array_adj, idStart-1, idEnd-1)
+    #print hasil
+    print("Hasil AStar : ")
+    #display graf hasil
+    result.display()
+    print("Cost : " + str(result.purecost))
 
-# def main():
-#     #baca dari test.txt
-#     array_adj, array_node = Main.read("./test/test.txt")
-#     #minta input start dan end
-#     for i in range (len(array_adj)):
-#         print(str(i+1) + ". " + array_adj[i].start.name, end="")
-#     idStart = int(input("Masukkan nomor node start : "))
-#     idEnd = int(input("Masukkan nomor node end : "))
-#     #jalankan AStar
-#     result = AStar(array_adj, idStart-1, idEnd-1)
-#     #print hasil
-#     print("Hasil AStar : ")
-#     #display graf hasil
-#     result.display()
-#     print("Cost : " + str(result.cost))
-
-#     # Visualisasi graf
-#     G = nx.DiGraph()
-#     for tempAdj in array_adj:
-#         for i in range(len(tempAdj.adjacent)):
-#             G.add_edge(tempAdj.start.name, tempAdj.adjacent[i][0].name, weight=tempAdj.adjacent[i][1])
-#     # set warna edge
-#     edge_colors = [G[u][v]['color'] if 'color' in G[u][v] else 'black' for u, v in G.edges()]
-#     # set posisi node
-#     pos = nx.spring_layout(G)
-#     # gambar graf
-#     nx.draw_networkx_edges(G, pos, edge_color=edge_colors, width=2, arrows=False)
-#     nx.draw_networkx_nodes(G, pos, node_size=2000, node_color='lightblue')
-#     nx.draw_networkx_labels(G, pos, font_size=7, font_family='sans-serif')
-#     # set warna edge hasil
-#     red_edges = [(result.list[i].start.name, result.list[i+1].start.name) for i in range(len(result.list)-1)]
-#     nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='red', width=2, arrows=False)
-#     nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
-#     plt.show()
-# main()
+    # # Visualisasi graf
+    # G = nx.DiGraph()
+    # for tempAdj in array_adj:
+    #     for i in range(len(tempAdj.adjacent)):
+    #         G.add_edge(tempAdj.start.name, tempAdj.adjacent[i][0].name, weight=tempAdj.adjacent[i][1])
+    # # set warna edge
+    # edge_colors = [G[u][v]['color'] if 'color' in G[u][v] else 'black' for u, v in G.edges()]
+    # # set posisi node
+    # pos = nx.spring_layout(G)
+    # # gambar graf
+    # nx.draw_networkx_edges(G, pos, edge_color=edge_colors, width=2, arrows=False)
+    # nx.draw_networkx_nodes(G, pos, node_size=2000, node_color='lightblue')
+    # nx.draw_networkx_labels(G, pos, font_size=7, font_family='sans-serif')
+    # # set warna edge hasil
+    # red_edges = [(result.list[i].start.name, result.list[i+1].start.name) for i in range(len(result.list)-1)]
+    # nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='red', width=2, arrows=False)
+    # nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
+    # plt.show()
+main()

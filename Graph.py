@@ -15,6 +15,7 @@ class Graph:
         self.list = []
         self.list.append(adjacent)
         self.cost = 0
+        self.purecost = 0
         self.state = self.list[len(self.list)-1]
         # print("HAI")
     def setState(self, state):
