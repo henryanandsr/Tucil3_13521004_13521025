@@ -11,7 +11,7 @@ class AdjacentB:
     def getDistance(self, node):
         for adjacentIndex in range(len(self.adjacent)):
             if self.adjacent[adjacentIndex].name == node.name:
-                return math.sqrt((self.start.X - self.adjacent[adjacentIndex].X)**2 + (self.start.Y - self.adjacent[adjacentIndex].Y)**2)
+                return math.sqrt((self.start.X - self.adjacent[adjacentIndex].X)**2 + (self.start.Y - self.adjacent[adjacentIndex].Y)**2)    
     def display(self):
         print("===========================")
         self.start.display()

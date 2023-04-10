@@ -203,38 +203,43 @@ def AStarBonus(arrAdj, idxStart, idxEnd):
     for i in range (len(result)):
         if (result[i].cost == min.cost):
             return result[i]
-def main():
-    #baca dari test.txt
-    array_adj, array_node = Main.readWithCoor("./test/alunalun.txt")
-    #minta input start dan end
-    for i in range (len(array_adj)):
-        print(str(i+1) + ". " + array_adj[i].start.name, end="")
-    idStart = int(input("Masukkan nomor node start : "))
-    idEnd = int(input("Masukkan nomor node end : "))
-    #jalankan AStar
-    result = AStarBonus(array_adj, idStart-1, idEnd-1)
-    #print hasil
-    print("Hasil AStar : ")
-    #display graf hasil
-    result.display()
-    print("Cost : " + str(result.purecost))
+        
+# def main():
+#     #baca dari test.txt
+#     array_adj, array_node = Main.read("./test/Test.txt")
+#     #minta input start dan end
+#     for i in range (len(array_adj)):
+#         print(str(i+1) + ". " + array_adj[i].start.name, end="")
+#     idStart = int(input("Masukkan nomor node start : "))
+#     idEnd = int(input("Masukkan nomor node end : "))
+#     #jalankan AStar
+#     result_Astar = AStar(array_adj, idStart-1, idEnd-1)
+#     result_UCS = Main.UCS(array_node[idStart-1], array_node[idEnd-1], array_adj)
+#     #print hasil
+#     print("Hasil AStar : ")
+#     #display graf hasil
+#     # result_Astar.display()
+#     print("Cost : " + str(result_Astar.cost))
 
-    # # Visualisasi graf
-    # G = nx.DiGraph()
-    # for tempAdj in array_adj:
-    #     for i in range(len(tempAdj.adjacent)):
-    #         G.add_edge(tempAdj.start.name, tempAdj.adjacent[i][0].name, weight=tempAdj.adjacent[i][1])
-    # # set warna edge
-    # edge_colors = [G[u][v]['color'] if 'color' in G[u][v] else 'black' for u, v in G.edges()]
-    # # set posisi node
-    # pos = nx.spring_layout(G)
-    # # gambar graf
-    # nx.draw_networkx_edges(G, pos, edge_color=edge_colors, width=2, arrows=False)
-    # nx.draw_networkx_nodes(G, pos, node_size=2000, node_color='lightblue')
-    # nx.draw_networkx_labels(G, pos, font_size=7, font_family='sans-serif')
-    # # set warna edge hasil
-    # red_edges = [(result.list[i].start.name, result.list[i+1].start.name) for i in range(len(result.list)-1)]
-    # nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='red', width=2, arrows=False)
-    # nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
-    # plt.show()
+
+
+#     # Visualisasi graf
+#     G = nx.DiGraph()
+#     for tempAdj in array_adj:
+#         for i in range(len(tempAdj.adjacent)):
+#             G.add_edge(tempAdj.start.name, tempAdj.adjacent[i][0].name, weight=tempAdj.adjacent[i][1])
+#     # set warna edge
+#     edge_colors = [G[u][v]['color'] if 'color' in G[u][v] else 'black' for u, v in G.edges()]
+#     # set posisi node
+#     pos = nx.spring_layout(G)
+#     # gambar graf
+#     nx.draw_networkx_edges(G, pos, edge_color=edge_colors, width=2, arrows=False)
+#     nx.draw_networkx_nodes(G, pos, node_size=2000, node_color='lightblue')
+#     nx.draw_networkx_labels(G, pos, font_size=7, font_family='sans-serif')
+#     # set warna edge hasil
+#     red_edges = [(result_Astar.list[i].start.name, result_Astar.list[i+1].start.name) for i in range(len(result_Astar.list)-1)]
+#     nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='red', width=2, arrows=False)
+#     nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
+#     plt.show()
+
 # main()
