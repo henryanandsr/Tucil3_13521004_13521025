@@ -71,9 +71,11 @@ def getNode(file):
     num = int(lines[0])
     if (len(lines) > num*2+1):
         a, b = readWithCoor(file)
+        flag = True
     else:
         a, b = read(file)
-    return b
+        flag = False
+    return b, flag
 def UCS(start, end, adjacents):
     # pqueue = queue.PriorityQueue()
     pqueue = []

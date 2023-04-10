@@ -20,12 +20,12 @@ def upload_file():
             # result = file.read().decode('utf-8')
             result = []
             
-            array_node = Main.getNode('./test/'+file.filename)
+            array_node, flag = Main.getNode('./test/'+file.filename)
             for i in range (len(array_node)):
                 result.append(array_node[i].name)
             # result = result.split('\n')
             session['name'] = file.filename
-            return render_template('home.html', result=result)
+            return render_template('home.html', result=result, flag = flag)
     else:
         return render_template('home.html')
 

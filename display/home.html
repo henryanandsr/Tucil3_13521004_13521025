@@ -8,6 +8,9 @@
     <form method="POST" action = "/" enctype="multipart/form-data">
         <input type="file" name="file" accept=".txt">
         <input type="submit" value="Upload">
+        {%if msg%}
+        <p>{{msg}}</p>
+        {%endif%}
     </form>
     {%if result%}
     <h2>Result:</h2>
@@ -24,12 +27,17 @@
         <label for="Node2">Masukkan Node akhir: </label>
         <input type="text" id="Node2" name="Node2">
         <br>
+        {%if flag%}
         <select id="options" name="options">
-            <option value="UCS">UCS</option>
-            <option value="UCS_Bonus">UCS Bonus</option>
-            <option value="A*">A Star</option>
-            <option value="A*B">A Star Bonus</option>
+            <option value="UCS_Bonus">Uniform Cost Search</option>
+            <option value="A*B">A Star</option>
         </select>
+        {% else %}
+        <select id="options" name="options">
+            <option value="UCS">Uniform Cost Search</option>
+            <option value="A*">A Star</option>
+        </select>
+        {% endif %}
         <br>
         <button type="submit">Submit</button>
         <!--Pass the array adjacent-->
