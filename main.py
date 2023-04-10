@@ -64,7 +64,16 @@ def readWithCoor(file):
         i += 1
     return array_of_adjacent, array_of_nodes
         
-
+def getNode(file):
+    with open(file, 'r') as f:
+        # Read the lines from the file
+        lines = f.readlines()
+    num = int(lines[0])
+    if (len(lines) > num*2+1):
+        a, b = readWithCoor(file)
+    else:
+        a, b = read(file)
+    return b
 def UCS(start, end, adjacents):
     # pqueue = queue.PriorityQueue()
     pqueue = []
@@ -98,7 +107,6 @@ def UCS(start, end, adjacents):
                             adjacents[i].adjacent[j][0].setPrev(current[1])
                             # pqueue.put([int(current[0]) + adjacents[i].adjacent[j][1], adjacents[i].adjacent[j][0]])
                             pqueue.append([int(current[0]) + adjacents[i].adjacent[j][1], adjacents[i].adjacent[j][0]])
-                            
         else:   
             continue
             
