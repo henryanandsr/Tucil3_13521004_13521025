@@ -4,6 +4,7 @@ import numpy as np
 import networkx as nx
 from AStar import AStarBonus
 from AStar import Main
+import folium
 import json
 
 app = Flask(__name__,template_folder='display')
@@ -11,6 +12,7 @@ app.secret_key = 'asterisk'
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    print("aku saya")
     if request.method == 'POST':
         file = request.files['file']
         if file.filename == '':
@@ -26,32 +28,25 @@ def upload_file():
             return render_template('home.html', result=result)
     else:
         return render_template('home.html')
-@app.route('/result', methods=['POST'])
-def result():
+
+@app.route('/calc', methods = ['POST'])
+def calc():
     array_adj, array_node = Main.readWithCoor('./test/'+session.get('name', None))
     idStart = request.form['Node1']
     idEnd = request.form['Node2']
     AstarResult = AStarBonus(array_adj, int(idStart)-1, int(idEnd)-1)
-    nodes_json = []
-    tempList = []
-    print(len(AstarResult.list))
+    result_list = []
     for i in range (len(AstarResult.list)):
-        tempList.extend(AstarResult.list[i].start.name, AstarResult.list[i].start.x, AstarResult.list[i].start.y)
-    for el in tempList:
-        node_dict = {
-            'id': el[0],
-            'x': el[1],
-            'y': el[2]
-        }
-        nodes_json.append(node_dict)
-        session['nodes_json'] = nodes_json
-        session['nodes_notJSON'] = tempList
-    return render_template('result.html', nodes_json = nodes_json)
-@app.route('/calc', methods = ['POST'])
-def calc():
-    nodes_json = session.get('nodes_json', None)
-    nodes_notJSON = session.get('nodes_notJSON', None)
-    center = [-7, 108.773628]
-    return render_template('index.html', nodes_json = nodes_json, center = center, nodes_notJSON = nodes_notJSON)
+        result_list.append([AstarResult.list[i].start.name, AstarResult.list[i].start.X, AstarResult.list[i].start.Y])
+    cost = AstarResult.purecost
+    
+    # make a map folium
+    m = folium.Map(location=[result_list[0][1], result_list[0][2]], zoom_start=12)
+    for i in range (len(result_list)):
+        folium.Marker(location=[result_list[i][1], result_list[i][2]], popup=result_list[i][0]).add_to(m)
+    m.save('display/result.html')
+    return render_template('index2.html', cost = cost, result = result_list)
+
 if __name__ == "__main__":
+    print("ghambar")
     app.run(debug=True)
