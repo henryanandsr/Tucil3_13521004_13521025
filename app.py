@@ -95,6 +95,7 @@ def calc():
         else:
             return render_template('home.html', msg="Tidak ada jalur")
     if (coor):
+        cost = cost* 111320
         return render_template('index2.html', cost = cost, result = result_list)
     else :
         return render_template('index.html', cost = cost, result  = result_list)
