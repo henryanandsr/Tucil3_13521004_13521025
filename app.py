@@ -6,6 +6,7 @@ from AStar import AStarBonus
 from AStar import Main
 import folium
 import json
+from flask_autoindex import AutoIndex
 
 app = Flask(__name__,template_folder='display')
 app.secret_key = 'asterisk'
@@ -29,7 +30,7 @@ def upload_file():
     else:
         return render_template('home.html')
 
-@app.route('/calc', methods = ['POST'])
+@app.route('/calc', methods = ['POST','GET'])
 def calc():
     array_adj, array_node = Main.readWithCoor('./test/'+session.get('name', None))
     idStart = request.form['Node1']
@@ -44,9 +45,8 @@ def calc():
     m = folium.Map(location=[result_list[0][1], result_list[0][2]], zoom_start=12)
     for i in range (len(result_list)):
         folium.Marker(location=[result_list[i][1], result_list[i][2]], popup=result_list[i][0]).add_to(m)
-    m.save('display/result.html')
+    m.save('static/result.html')
     return render_template('index2.html', cost = cost, result = result_list)
-
 if __name__ == "__main__":
     print("ghambar")
     app.run(debug=True)
