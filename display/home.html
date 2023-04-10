@@ -1,49 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>File Upload</title>
+    <title>Route Finder</title>
+    <link rel = "stylesheet" href = "{{ url_for('static', filename='dist/output.css') }}" />
 </head>
-<body>
-    <h1>File Upload</h1>
-    <form method="POST" action = "/" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".txt">
-        <input type="submit" value="Upload">
-        {%if msg%}
-        <p>{{msg}}</p>
+<body class="bg-black">
+    <div class="m-4 p-4 bg-gray-400">
+        <h1 class="text-center text-5xl text-white font-sans font-bold">File Upload</h1>
+        <form method="POST" action = "/" enctype="multipart/form-data">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
+            <input type="file" name="file" accept=".txt" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" >
+            <div class = "m-4"></div>
+            <input type="submit" value="Upload" class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">
+            {%if msg%}
+            <p>{{msg}}</p>
+            {%endif%}
+        </form>
+        {%if result%}
+        <h2>Node Pilihan:</h2>
+        {% for line in result %}
+        <ol class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+            <li>
+                <span class="font-semibold text-gray-900 dark:text-white">{{ line }}</span>
+            </li>
+        </ol>
+        {% endfor %}          
+        <div>
+        <form method="POST" action = "/calc">
+            <label for="Node1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masukkan Node awal</label>
+            <input type="text" id="Node1" name="Node1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <br>
+            <label for="Node2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masukkan Node akhir: </label>
+            <input type="text" id="Node2" name="Node2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <br>
+            {%if flag%}
+            <select id="options" name="options">
+                <option value="UCS_Bonus">Uniform Cost Search</option>
+                <option value="A*B">A Star</option>
+            </select>
+            {% else %}
+            <select id="options" name="options">
+                <option value="UCS">Uniform Cost Search</option>
+                <option value="A*">A Star</option>
+            </select>
+            {% endif %}
+            <br>
+            <div class = "m-2">
+                <button class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full float-right" type="submit">Submit</button>
+            </div>
+            <!--Pass the array adjacent-->
+            <input type="hidden" name="adjacent" value="{{array_adj}}">
+        </form>
+        </div>
         {%endif%}
-    </form>
-    {%if result%}
-    <h2>Result:</h2>
-    <ol>
-    {% for line in result %}
-        <li>{{ line }}</li>
-    {% endfor %}
-    </ol>
-    <div>
-    <form method="POST" action = "/calc">
-        <label for="Node1">Masukkan Node awal : </label>
-        <input type="text" id="Node1" name="Node1">
-        <br>
-        <label for="Node2">Masukkan Node akhir: </label>
-        <input type="text" id="Node2" name="Node2">
-        <br>
-        {%if flag%}
-        <select id="options" name="options">
-            <option value="UCS_Bonus">Uniform Cost Search</option>
-            <option value="A*B">A Star</option>
-        </select>
-        {% else %}
-        <select id="options" name="options">
-            <option value="UCS">Uniform Cost Search</option>
-            <option value="A*">A Star</option>
-        </select>
-        {% endif %}
-        <br>
-        <button type="submit">Submit</button>
-        <!--Pass the array adjacent-->
-        <input type="hidden" name="adjacent" value="{{array_adj}}">
-    </form>
     </div>
-    {%endif%}
 </body>
 </html>
