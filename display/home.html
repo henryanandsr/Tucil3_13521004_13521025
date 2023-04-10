@@ -20,8 +20,17 @@
     <form method="POST" action = "/calc">
         <label for="Node1">Masukkan Node awal : </label>
         <input type="text" id="Node1" name="Node1">
+        <br>
         <label for="Node2">Masukkan Node akhir: </label>
         <input type="text" id="Node2" name="Node2">
+        <br>
+        <select id="options" name="options">
+            <option value="UCS">UCS</option>
+            <option value="UCS_Bonus">UCS Bonus</option>
+            <option value="A*">A Star</option>
+            <option value="A*B">A Star Bonus</option>
+        </select>
+        <br>
         <button type="submit">Submit</button>
         <!--Pass the array adjacent-->
         <input type="hidden" name="adjacent" value="{{array_adj}}">

@@ -5,6 +5,12 @@
 </head>
 <body>
     <h1>My Map</h1>
-    <iframe src="{{ url_for('static', filename='result.html') }}" width="100%" height="500"></iframe>
+    <iframe src="{{ url_for('static', filename='result.html') }}" width="100%" height="300"></iframe>
+    <p>The cost is: {{ cost }}</p>
+    <ul>
+        {% for node in result %}
+            <li>{{ node[0] }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
