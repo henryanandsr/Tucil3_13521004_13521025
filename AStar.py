@@ -34,7 +34,8 @@ def AStar(arrAdj, idxStart, idxEnd):
     pqueue.append(parent)
     #inisiasi endnode
     endNode = arrAdj[idxEnd]
-    
+    if (idxEnd==idxStart):
+        return parent
     idx = 0
     while not found:
         # print('---------------------------------------')
@@ -121,14 +122,14 @@ def AStarBonus(arrAdj, idxStart, idxEnd):
     pqueue = []
     result = []
     temp = arrAdj[idxStart]
-
     #make a graph with start node
     parent = g.Graph(temp)
     # visited.append(temp)
     pqueue.append(parent)
     #inisiasi endnode
     endNode = arrAdj[idxEnd]
-    
+    if (idxEnd==idxStart):
+        return parent
     idx = 0
     while not found:
         #hapus dulu parentnya dari list
