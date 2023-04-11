@@ -13,7 +13,9 @@
             <div class = "m-4"></div>
             <input type="submit" value="Upload" class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">
             {%if msg%}
-            <p>{{msg}}</p>
+            <p>
+                {{msg}}
+            </p>
             {%endif%}
         </form>
         {%if result%}
@@ -21,7 +23,11 @@
         {% for line in result %}
         <ol class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
             <li>
-                <span class="font-semibold text-gray-900 dark:text-white">{{ line }}</span>
+                
+                <span class="font-semibold text-gray-900 dark:text-white">
+                    <span class="mr-2">{{ loop.index }}.</span> 
+                    {{ line }}
+                </span>
             </li>
         </ol>
         {% endfor %}          
@@ -35,7 +41,7 @@
             <br>
             {%if flag%}
             <select id="options" name="options">
-                <option value="UCS_Bonus">Uniform Cost Search</option>
+                <option value="UCS_B">Uniform Cost Search</option>
                 <option value="A*B">A Star</option>
             </select>
             {% else %}
