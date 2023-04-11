@@ -1,7 +1,6 @@
 import Node as n
 import Graph as g
 import Adjacent as a
-import queue
 
 def read(file):
     # Open the text file
@@ -76,95 +75,96 @@ def getNode(file):
         a, b = read(file)
         flag = False
     return b, flag
-def UCS(start, end, adjacents):
-    # pqueue = queue.PriorityQueue()
-    pqueue = []
-    visited = []
-    # pqueue.put([0, start])
-    pqueue.append([0, start])
-    path = []
 
-    while pqueue:
-        min_val = min(pqueue) 
-        min_idx = pqueue.index(min_val)  
-        current = pqueue.pop(min_idx) 
-        if current[1].name == end.name:
-            visited.append(current[1].name)
-            temp_node = current[1]
-            while(temp_node != start):
-                path.append(temp_node.name)
-                temp_node = temp_node.previous
-            path.append(start.name)
-            path = path[::-1]
-            # print(visited)
-            return current[0], path
+# def UCS(start, end, adjacents):
+#     # pqueue = queue.PriorityQueue()
+#     pqueue = []
+#     visited = []
+#     # pqueue.put([0, start])
+#     pqueue.append([0, start])
+#     path = []
+
+#     while pqueue:
+#         min_val = min(pqueue) 
+#         min_idx = pqueue.index(min_val)  
+#         current = pqueue.pop(min_idx) 
+#         if current[1].name == end.name:
+#             visited.append(current[1].name)
+#             temp_node = current[1]
+#             while(temp_node != start):
+#                 path.append(temp_node.name)
+#                 temp_node = temp_node.previous
+#             path.append(start.name)
+#             path = path[::-1]
+#             # print(visited)
+#             return current[0], path
         
-        if current[1].name not in visited:
-            temp_node = current[1]
-            visited.append(current[1].name)
-            for i in range(len(adjacents)):
-                if adjacents[i].start.name == current[1].name:
-                    for j in range(len(adjacents[i].adjacent)):
-                        if adjacents[i].adjacent[j][0].name not in visited:
-                            adjacents[i].adjacent[j][0].setPrev(current[1])
-                            # pqueue.put([int(current[0]) + adjacents[i].adjacent[j][1], adjacents[i].adjacent[j][0]])
-                            pqueue.append([int(current[0]) + adjacents[i].adjacent[j][1], adjacents[i].adjacent[j][0]])
-        else:   
-            continue
+#         if current[1].name not in visited:
+#             temp_node = current[1]
+#             visited.append(current[1].name)
+#             for i in range(len(adjacents)):
+#                 if adjacents[i].start.name == current[1].name:
+#                     for j in range(len(adjacents[i].adjacent)):
+#                         if adjacents[i].adjacent[j][0].name not in visited:
+#                             adjacents[i].adjacent[j][0].setPrev(current[1])
+#                             # pqueue.put([int(current[0]) + adjacents[i].adjacent[j][1], adjacents[i].adjacent[j][0]])
+#                             pqueue.append([int(current[0]) + adjacents[i].adjacent[j][1], adjacents[i].adjacent[j][0]])
+#         else:   
+#             continue
             
 
-    return None
+#     return None
 
 
-def UCS_B(start, end, adjacents):
+# def UCS_B(start, end, adjacents):
 
-    # pqueue = queue.PriorityQueue()
+#     # pqueue = queue.PriorityQueue()
     
-    weight_matrix = []
-    for i in range(len(adjacents)):
-        weight = []
-        for j in range(len(adjacents[i].adjacent)):
-            weight.append(adjacents[i].start.getDistance(adjacents[i].adjacent[j][0]))
+#     weight_matrix = []
+#     for i in range(len(adjacents)):
+#         weight = []
+#         for j in range(len(adjacents[i].adjacent)):
+#             weight.append(adjacents[i].start.getDistance(adjacents[i].adjacent[j][0]))
 
-        weight_matrix.append(weight)
+#         weight_matrix.append(weight)
 
-    pqueue = []
-    visited = []
-    # pqueue.put([0, start])
-    pqueue.append([0, start])
-    path = []
+#     pqueue = []
+#     visited = []
+#     # pqueue.put([0, start])
+#     pqueue.append([0, start])
+#     path = []
 
-    while pqueue:
-        min_val = min(pqueue) 
-        min_idx = pqueue.index(min_val)  
-        current = pqueue.pop(min_idx) 
-        if current[1].name == end.name:
-            visited.append(current[1].name)
-            temp_node = current[1]
-            while(temp_node != start):
-                path.append(temp_node.name)
-                temp_node = temp_node.previous
-            path.append(start.name)
-            path = path[::-1]
-            print(visited)
-            return current[0], path
+#     while pqueue:
+#         min_val = min(pqueue) 
+#         min_idx = pqueue.index(min_val)  
+#         current = pqueue.pop(min_idx) 
+#         if current[1].name == end.name:
+#             visited.append(current[1].name)
+#             temp_node = current[1]
+#             while(temp_node != start):
+#                 path.append(temp_node.name)
+#                 temp_node = temp_node.previous
+#             path.append(start.name)
+#             path = path[::-1]
+#             print(visited)
+#             return current[0], path
         
-        if current[1].name not in visited:
-            temp_node = current[1]
-            visited.append(current[1].name)
-            for i in range(len(adjacents)):
-                if adjacents[i].start.name == current[1].name:
-                    for j in range(len(adjacents[i].adjacent)):
-                        if adjacents[i].adjacent[j][0].name not in visited:
-                            adjacents[i].adjacent[j][0].setPrev(current[1])
-                            # pqueue.put([int(current[0]) + adjacents[i].adjacent[j][1], adjacents[i].adjacent[j][0]])
-                            pqueue.append([int(current[0]) + weight_matrix[i][j], adjacents[i].adjacent[j][0]])
+#         if current[1].name not in visited:
+#             temp_node = current[1]
+#             visited.append(current[1].name)
+#             for i in range(len(adjacents)):
+#                 if adjacents[i].start.name == current[1].name:
+#                     for j in range(len(adjacents[i].adjacent)):
+#                         if adjacents[i].adjacent[j][0].name not in visited:
+#                             adjacents[i].adjacent[j][0].setPrev(current[1])
+#                             # pqueue.put([int(current[0]) + adjacents[i].adjacent[j][1], adjacents[i].adjacent[j][0]])
+#                             pqueue.append([int(current[0]) + weight_matrix[i][j], adjacents[i].adjacent[j][0]])
                             
-        else:   
-            continue
+#         else:   
+#             continue
             
 
-    return None
+#     return None
 
 
 # def main ():
