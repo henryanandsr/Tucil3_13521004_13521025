@@ -4,14 +4,34 @@
 	<title>Welcome to my Flask app</title>
 	<link rel = "stylesheet" href = "{{ url_for('static', filename='dist/output.css') }}" />
 </head>
-<body onload="initMap()">
-	<h1>Hello, world!</h1>
-	<img src="{{ url_for('static', filename='result.png') }}" alt="Example image">
-	<p>The cost is: {{ cost }}</p>
-	<ul>
-		{% for node in result %}
-			<li>{{ node }}</li>
-		{% endfor %}
-	</ul>
+<body onload="initMap()" class = "bg-yellow-400">
+	<div class="m-6 flex items-center justify-center rounded-3xl bg-gray-900 p-5 font-bold">
+        <h1 class="text-center text-5xl text-white">Route Map</h1>
+    </div>  
+	<div class="grid grid-cols-4 gap-4">
+		<div class="p-4 col-span-1">
+			<!-- content for the first column -->
+			<div class="bg-gray-900 rounded-2xl p-2">
+				<p class="text-yellow-400 font-bold">Estimasi Jarak : </p>
+				<p class="text-white">{{ cost }}</p>
+			</div>
+			<div class="my-4"></div>
+			<div class="bg-gray-900 rounded-2xl p-2">
+				<p class="text-yellow-400 font-bold"> Rute Hasil : </p>
+				<ul>
+					{% for node in result %}
+					<li class="text-white ml-2">{{ node }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div class="bg-gray-900 p-4 rounded-3xl col-span-3">
+			<!-- content for the second column -->
+			<div>
+				<img src="{{ url_for('static', filename='result.png') }}" alt="Example image" class = "mx-auto">
+			</div>
+		</div>
+	</div>	
+	</div>
 </body>
 </html>
