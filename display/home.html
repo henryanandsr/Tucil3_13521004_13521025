@@ -4,56 +4,69 @@
     <title>Route Finder</title>
     <link rel = "stylesheet" href = "{{ url_for('static', filename='dist/output.css') }}" />
 </head>
-<body class="bg-black">
-    <div class="m-4 p-4 bg-gray-400">
-        <h1 class="text-center text-5xl text-white font-sans font-bold">File Upload</h1>
+<body class="bg-yellow-400">
+    <div class="m-6 flex items-center justify-center rounded-3xl bg-gray-900 p-5 font-bold">
+        <h1 class="text-center text-5xl text-white">Route Finder</h1>
+    </div>      
+    <div class="m-6 p-6 bg-gray-900 rounded-3xl">
         <form method="POST" action = "/" enctype="multipart/form-data">
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-            <input type="file" name="file" accept=".txt" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" >
-            <div class = "m-4"></div>
-            <input type="submit" value="Upload" class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">
+            <label class="block mb-2 text-sm font-bold text-gray-900 dark:text-white ml-2" for="file_input">Upload file</label>
+            <label class="block w-full text-sm text-gray-900 border border-gray-300 rounded-3xl cursor-pointer bg-yellow-400 dark:text-gray-400 focus:outline-none dark:bg-white dark:border-gray-600 dark:placeholder-gray-400">
+                <span class="sr-only font-semibold" id="file-name">Choose File</span>
+                <input type="file" name="file" accept=".txt" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-yellow-400 file:text-gray-900 hover:file:bg-yellow-300" onchange="document.getElementById('file-name').innerHTML = this.files[0].name;">
+            </label>      
+            <div class = "m-2"></div>
+            <input type="submit" value="Upload" class="bg-white hover:bg-gray-400 text-gray-900 font-bold py-1 px-7 rounded-xl">
             {%if msg%}
             <p>
                 {{msg}}
             </p>
             {%endif%}
         </form>
+        <div class = "my-4"></div>
         {%if result%}
-        <h2>Node Pilihan:</h2>
+        <h2 class="text-yellow-400 ml-2 font-bold">Node Pilihan:</h2>
         {% for line in result %}
-        <ol class="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+        <ol>
             <li>
-                
-                <span class="font-semibold text-gray-900 dark:text-white">
+                <span class="font-semibold text-gray-900 dark:text-white ml-2">
                     <span class="mr-2">{{ loop.index }}.</span> 
                     {{ line }}
                 </span>
             </li>
         </ol>
         {% endfor %}          
+        <div class = "my-4"></div>
         <div>
         <form method="POST" action = "/calc">
-            <label for="Node1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masukkan Node awal</label>
-            <input type="text" id="Node1" name="Node1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <br>
-            <label for="Node2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Masukkan Node akhir: </label>
-            <input type="text" id="Node2" name="Node2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <div class="flex items-center">
+                <label for="Node1" class="block mr-2 text-sm font-bold text-gray-900 dark:text-yellow-400">Node awal</label>
+                <input type="text" id="Node1" name="Node1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
+            <div class="my-2"></div>
+            <div class = "flex items-center">     
+                <label for="Node2" class="block mr-2 text-sm font-bold text-gray-900 dark:text-yellow-400">Node akhir</label>
+                <input type="text" id="Node2" name="Node2" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-1 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            </div>
             <br>
             {%if flag%}
-            <select id="options" name="options">
-                <option value="UCS_B">Uniform Cost Search</option>
-                <option value="A*B">A Star</option>
-            </select>
+            <select id="options" name="options" class="bg-yellow-400 rounded-3xl p-2 font-bold text-center">
+                <option class = "font-bold"value="" selected disabled>Select an option</option>
+                <option value="UCS_B" class="bg-white font-bold">Uniform Cost Search</option>
+                <option value="A*B" class="bg-white font-bold">A Star</option>
+            </select>                          
             {% else %}
-            <select id="options" name="options">
-                <option value="UCS">Uniform Cost Search</option>
-                <option value="A*">A Star</option>
+            <select id="options" name="options" class = "bg-yellow-400 rounded-3xl p-2 font-bold text-center">
+                <option class = "font-bold"value="" selected disabled>Select an option</option>
+                <option value="UCS" class="bg-white font-bold">Uniform Cost Search</option>
+                <option value="A*" class="bg-white font-bold">A Star</option>
             </select>
             {% endif %}
             <br>
-            <div class = "m-2">
-                <button class="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full float-right" type="submit">Submit</button>
-            </div>
+            <div class = "my-4"></div>
+            <div class="flex justify-end">
+                <button class="bg-yellow-400 hover:bg-yellow-200 text-gray-900 font-bold py-2 px-8 rounded-2xl" type="submit">Seacrh</button>
+            </div>              
             <!--Pass the array adjacent-->
             <input type="hidden" name="adjacent" value="{{array_adj}}">
         </form>
