@@ -4,66 +4,63 @@
     <title>MAP</title>
     <link rel = "stylesheet" href = "{{ url_for('static', filename='dist/output.css') }}" />
 </head>
-<body class="bg-black relative">
-        <style>
+<style>
+    .bg_body {
+        background-color: rgb(250, 204, 21);
+    }
+</style>
+<body class="bg_body relative">
+    <div>
+        <!-- <style>
             .title {
                 /* Adjust the top and right properties to move the div */
                 position: absolute;
-                height: 2rem; 
-                color: white;
-                background-color: gray;
-                /* Add any other styles as needed */
+                /* margin: 1.5rem; */
+                height: 5rem;
+                width: 100%;
+                margin: 1;
+                color: rgb(250, 204, 21);
+                background-color: black;
                 display: flex;
-                /* align-items: center; */
                 justify-content: center;
-                padding-right: 50rem;
-                /* justify-content: calc(50% + 3rem); */
+                font-size: 3rem;
+                border-radius: 0.75rem;
             }
-
-        </style>
-    <div class="title w-full absolute top-0 right-1" > Route </div>
-
-    <style>
-        .map-container {
-            position: relative;
-            height: calc(100vh - 3rem); /* Adjust the height as needed */
-        }
-        .map-iframe {
-            position: absolute;
-            top: 2rem; /* Adjust the top position as needed */
-            left: 37rem;
-            right: 0rem;
-            width: 65%;
-            height: 40rem; /* Adjust the height as needed */
-            border: none;
-        }
-    </style>
-    <div class="map-container relative">
-        <iframe class="map-iframe" src="{{ url_for('static', filename='result.html') }}" width="100%"></iframe>
-        <style>
-            .border {
-                top: 2rem;
-                position: relative;
-                height: calc(100vh - 30rem); /* Adjust the height as needed */
-                width: 37rem;
-            }
-
-        </style>
-        <!-- <div class="border border-gray-400 rounded-md h-12 w-12 flex justify-center items-center"> -->
-            <!-- Add your content here, e.g. an icon or text -->
-            <ul style="color: aliceblue; padding-top: 4rem;">
-
-                {% for node in result %}
-                <li>
-                    <span class="mr-2">{{ loop.index }}.</span>
-                    {{ node[0] }}
-                </li>
-                {% endfor %}
-            </ul>
-        <!-- </div> -->
-        <p style="color: aliceblue; padding-top: 3rem;">Estimasi jarak : {{ cost }} meter</p>
+        </style> -->
+    <div class="m-6 items-center justify-center rounded-3xl bg-gray-900 p-5 font-bold  ">
+        <h1 class="text-center text-5xl text-white">Route Map</h1>
     </div>
 
-    
+    <div class="grid grid-cols-2 gap-4">
+        <div class="p-4">
+            <div class="bg-gray-900 p-2 rounded-2xl">
+
+                <p class="text-yellow-400 font-bold">Estimasi jarak :</p>
+                <p class="text-white">{{ cost }} meter</p>
+            
+            </div>
+            <div class="my-4"></div>
+
+            <div class="bg-gray-900 p-2 rounded-2xl ">
+                <p class="text-yellow-400 font-bold">Node Hasil : </p>
+                <ul class="text-white">
+                    {% for node in result %}
+                    <li>
+                        <span class="mr-2">{{ loop.index }}.</span>
+                        {{ node[0] }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+          <!-- Content for the left column goes here -->
+        </div>
+        <div class="p-4">
+            <div class="w-full h-96">
+                <iframe class="w-full h-full" src="{{ url_for('static', filename='result.html') }}"></iframe>
+            </div>
+            <!-- Content for the right column goes here -->
+        </div>
+    </div>
+
 </body>
 </html>
