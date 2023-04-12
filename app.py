@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import networkx as nx
 from AStar import AStarBonus, AStar
-import main as Main
+import reader as read
 from UCS import UCS, UCS_B
 import folium
 import json
@@ -12,7 +12,6 @@ app = Flask(__name__,template_folder='display')
 app.secret_key = 'asterisk'
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
-    print("aku saya")
     if request.method == 'POST':
         file = request.files['file']
         if file.filename == '':
@@ -21,7 +20,7 @@ def upload_file():
             # result = file.read().decode('utf-8')
             result = []
             
-            array_node, flag = Main.getNode('./test/'+file.filename)
+            array_node, flag = read.getNode('./test/'+file.filename)
             for i in range (len(array_node)):
                 result.append(array_node[i].name)
             # result = result.split('\n')
@@ -38,7 +37,7 @@ def calc():
     coor = False
     if selected_algorithm == 'A*B':
         coor = True
-        array_adj, array_node = Main.readWithCoor('./test/' + session.get('name', None))
+        array_adj, array_node = read.readWithCoor('./test/' + session.get('name', None))
         AstarResult = AStarBonus(array_adj, int(idStart)-1, int(idEnd)-1)
         if (AstarResult):
             result_list = []
@@ -67,7 +66,7 @@ def calc():
     elif selected_algorithm == "A*":
         # clear plot
         plt.clf()
-        array_adj, array_node = Main.read('./test/'+session.get('name', None))
+        array_adj, array_node = read.read('./test/'+session.get('name', None))
         AstarResult = AStar(array_adj, int(idStart)-1, int(idEnd)-1)
         if (AstarResult):
             result_list = []
@@ -98,7 +97,7 @@ def calc():
         
     elif selected_algorithm == "UCS_B":    
         coor = True
-        array_adj, array_node = Main.readWithCoor('./test/' + session.get('name', None))
+        array_adj, array_node = read.readWithCoor('./test/' + session.get('name', None))
         try:
             UCS_Result = UCS_B(array_node[int(idStart)-1], array_node[int(idEnd)-1], array_adj)
         except:
@@ -132,7 +131,7 @@ def calc():
     elif selected_algorithm == "UCS":
         # clear plot
         plt.clf()
-        array_adj, array_node = Main.read('./test/'+session.get('name', None))
+        array_adj, array_node = read.read('./test/'+session.get('name', None))
         try:
             UCS_Result = UCS(array_node[int(idStart)-1], array_node[int(idEnd)-1], array_adj)
         except:
@@ -171,5 +170,4 @@ def calc():
     else :
         return render_template('index.html', cost = cost, result  = result_list)
 if __name__ == "__main__":
-    print("ghambar")
     app.run(debug=True)
