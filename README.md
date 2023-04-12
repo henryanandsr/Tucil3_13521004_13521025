@@ -1,8 +1,11 @@
 # Implementasi Algoritma UCS dan A* untuk Menentukan Lintasan Terpendek
 Tugas Kecil 3 IF2211 Strategi Algoritma "Implementasi Algoritma *UCS* dan *A** untuk Menentukan Lintasan Terpendek".
 
-## :writing_hand: Authors
+## :camera_flash: Screenshots
+![cap1](https://user-images.githubusercontent.com/39207406/231450220-ba884a8e-2a41-4c93-82f5-c2d97b2f0596.png)
+![cap2](https://user-images.githubusercontent.com/39207406/231450790-5d00ee66-db4f-455a-b5d9-7fbede84daf6.png)
 
+## :writing_hand: Authors
 | Nama                  | NIM      |
 | --------------------- | -------- |
 | Henry Anand Septian Radityo | 13521004 |
