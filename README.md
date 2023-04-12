@@ -32,4 +32,5 @@ NetworkX
 2. Buka masuk ke direktori `TUCIL3_13521004_13521025`
 3. Setelah selesai, jalankan program app.py dengan memasukkan `python "./src/app.py"`
 4. Jika Berhasil, tampilan program dapat dilihat di browser pada localhost dengan port 5000 (http://127.0.0.1:5000)
-:white_check_mark:
+
+:warning:	Apabila graf yang dihasilkan atau peta yang divisualisasikan tidak berubah, lakukan pembersihan pada cache browser atau menekan tombol `ctrl + shift + r`
