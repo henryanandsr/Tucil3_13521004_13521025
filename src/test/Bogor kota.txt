@@ -1,0 +1,19 @@
+6
+Botani Square Mall
+-6.604702 106.803604
+Kebun Raya Bogor
+-6.602420 106.803239
+Istana Bogor (Bogor Palace)
+-6.597960 106.802956
+Kujang Monument
+-6.600435 106.806832
+Museum Zoologi Bogor
+-6.605607 106.799695
+Taman Topi Bogor
+-6.608563 106.797041
+0 1 1 1 0 0
+1 0 1 0 1 1
+1 1 0 1 1 1
+1 0 1 0 0 0
+0 1 1 0 0 0
+0 1 1 0 0 0

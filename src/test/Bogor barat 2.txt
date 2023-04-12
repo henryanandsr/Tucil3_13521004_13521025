@@ -1,0 +1,22 @@
+7
+Yasmin Mosque
+-6.602371 106.828401
+Yasmin Townhouse
+-6.601880 106.829009
+Taman Bunga Nusantara
+-6.600370 106.827854
+IPB University
+-6.602868 106.830255
+Sentul Nirwana Residence
+-6.605907 106.830428
+CitraGran Cibubur
+-6.609136 106.828165
+Yasmin Sport Center
+-6.602615 106.825852
+0 1 1 1 0 0 0
+1 0 1 0 1 1 0
+1 1 0 1 1 0 0
+1 0 1 0 0 0 0
+0 1 1 0 0 0 0
+0 1 0 0 0 0 0
+0 0 0 0 0 0 0
