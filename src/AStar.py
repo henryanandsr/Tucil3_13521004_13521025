@@ -69,6 +69,7 @@ def AStar(arrAdj, idxStart, idxEnd):
             break
         visited.append(temp)
         min = copy.deepcopy(pqueue[0])
+        idx = 0
         for i in range (len(pqueue)):
             if (pqueue[i].cost < min.cost):
                 min = pqueue[i]
@@ -103,6 +104,7 @@ def AStarBonus(arrAdj, idxStart, idxEnd):
     visited = []
     pqueue = []
     result = []
+    # temp akan mengambil adjacent pertama
     temp = arrAdj[idxStart]
     #make a graph with start node
     parent = g.Graph(temp)
@@ -113,47 +115,51 @@ def AStarBonus(arrAdj, idxStart, idxEnd):
     if (idxEnd==idxStart):
         return parent
     idx = 0
+    p = 0
     while not found:
         #hapus dulu parentnya dari list
         del pqueue[idx]
         # ambil adjacent dari graf parent sampai dimana kita
         temp = parent.state
-
+        # cari untuk setiap adjacent dalam temp
         for i in range (len(temp.adjacent)):
             tempParent = copy.deepcopy(parent)
             if not inside(visited, temp.adjacent[i][0]):
                 #cari graf yang ingin dimasukkan
+                # print('lakukan pengecekan untuk ' + temp.adjacent[i][0].name)
                 for j in range (len(arrAdj)):
                     if arrAdj[j].start.name == temp.adjacent[i][0].name:
                         tempAdj = arrAdj[j]
                         break
-                if (not tempAdj == None):
-                    # print('tempAdj : ' + str(tempAdj.start.name))
-                    # tempAdj.display()
-                    previous = copy.deepcopy(tempParent.state)
-                    tempParent.addAdjNode(tempAdj)
-                    tempGraph = tempParent
-                    #update cost
-                    heuristic = distance(tempGraph.state, arrAdj[idxEnd])
-                    # heuristic = 0
-                    tempGraph.cost = tempGraph.purecost + distance(previous, tempGraph.state) + heuristic
-                    tempGraph.purecost = tempGraph.purecost + distance(previous, tempGraph.state)
-                    #masukkan dalam result apabila menemukan hasil
-                    if (isContainsEndNode(tempGraph, endNode)):
-                        result.append(tempGraph)
-                    #masukkan dalam pqueue dan visited
-                    pqueue.append(tempGraph)    
+
+                previous = copy.deepcopy(tempParent.state)
+                tempParent.addAdjNode(tempAdj)
+                tempGraph = tempParent
+
+                # update cost
+                heuristic = distance(tempGraph.state, arrAdj[idxEnd])
+
+                # heuristic = 0
+                tempGraph.cost = tempGraph.purecost + distance(previous, tempGraph.state) + heuristic
+                tempGraph.purecost = tempGraph.purecost + distance(previous, tempGraph.state)
+
+                # masukkan dalam result apabila menemukan hasil
+                if (isContainsEndNode(tempGraph, endNode)):
+                    result.append(tempGraph)
+                # masukkan dalam pqueue dan visited
+                pqueue.append(tempGraph)
         # cari node yang belum dikunjungi dengan f(n) terkecil
         if (len(pqueue)==0):
             break
         visited.append(temp)
+        # print("MASUKIN " + temp.start.name)
         min = copy.deepcopy(pqueue[0])
+        idx = 0
         for i in range (len(pqueue)):
             if (pqueue[i].cost < min.cost):
-                min = pqueue[i]
+                min = copy.deepcopy(pqueue[i])
                 idx = i
         parent = min
-        # parent.display()
         #cari apakah sudah tidak bisa lagi / pencarian selesai 
         if (len(result)>0):
             min = result[0]

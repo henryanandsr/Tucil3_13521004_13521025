@@ -1,0 +1,19 @@
+9
+Tugu_Tani
+Kanisius
+Masjid_Cut_Meutia
+Menteng_Huis
+Gedung_Joang
+Shell_Menteng
+Fraser_Residence
+Stasiun_Gondangdia
+Menteng_Kecil
+0 0 0 0 0 1 1 0 0
+0 0 1 1 0 0 1 0 1
+0 1 0 1 0 0 0 1 0
+0 1 1 0 1 0 0 0 0
+0 0 0 1 0 1 0 0 0
+1 0 0 0 1 0 0 0 0
+1 1 0 0 0 0 0 1 0
+0 0 1 0 0 0 1 0 1
+0 1 0 0 0 0 0 1 0
