@@ -72,7 +72,7 @@ def calc():
             result_list = []
             for i in range(len(AstarResult.list)):
                 result_list.append(AstarResult.list[i].start.name)
-            cost = AstarResult.cost
+            cost = AstarResult.purecost
             # Visualisasi graf
             G = nx.DiGraph()
             for tempAdj in array_adj:
