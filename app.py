@@ -102,13 +102,13 @@ def calc():
         try:
             UCS_Result = UCS_B(array_node[int(idStart)-1], array_node[int(idEnd)-1], array_adj)
         except:
-            return render_template('home.html', msg="Terjadi Error Karena Terdapat nilai Priority yang sama")
+            return render_template('home.html', msg="Terjadi Error")
     
         if (UCS_Result):
             result_list = []
             for i in range(len(UCS_Result[0])):
                 result_list.append([UCS_Result[0][i].name, UCS_Result[0][i].X, UCS_Result[0][i].Y])
-            cost = UCS_Result[1]
+            cost = UCS_Result[1] / 100
             # make a map folium
             m = folium.Map(location=[result_list[0][1], result_list[0][2]], zoom_start=12)
             # mark all node first
@@ -136,13 +136,13 @@ def calc():
         try:
             UCS_Result = UCS(array_node[int(idStart)-1], array_node[int(idEnd)-1], array_adj)
         except:
-            return render_template('home.html', msg="Terjadi Error Karena Terdapat nilai Priority yang sama")
+            return render_template('home.html', msg="Terjadi Error")
     
         if (UCS_Result):
             result_list = []
             for i in range(len(UCS_Result[0])):
                 result_list.append(UCS_Result[0][i].name)
-            cost = UCS_Result[1]
+            cost = UCS_Result[1] / 100
             # Visualisasi graf
             G = nx.DiGraph()
             for tempAdj in array_adj:
